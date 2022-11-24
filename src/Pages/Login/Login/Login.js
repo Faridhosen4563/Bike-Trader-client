@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import login from "../../../assets/login/login.png";
+import googleLogo from "../../../assets/signup/icons8-google (1).svg";
+import gitHubLogo from "../../../assets/signup/icons8-github.svg";
+import facebookLogo from "../../../assets/signup/icons8-facebook.svg";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const Login = () => {
+  const { logIn } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
   const handleLogIn = (data) => {
-    console.log(data);
+    logIn(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   return (
     <div>
@@ -40,9 +52,9 @@ const Login = () => {
                   className="input input-bordered"
                 />
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
+                  <Link className="label-text-alt link link-hover">
                     Forgot password?
-                  </a>
+                  </Link>
                 </label>
               </div>
               <div className="form-control mt-6">
@@ -51,8 +63,23 @@ const Login = () => {
                 </button>
               </div>
               <p className="text-center my-2">
-                Don't have an account? Please <Link to="/signup">Sign Up</Link>
+                Don't have an account? Please{" "}
+                <Link to="/signup" className="text-blue-400">
+                  Sign Up
+                </Link>
               </p>
+              <div className="divider">OR</div>
+              <div className="flex justify-evenly">
+                <button>
+                  <img src={googleLogo} alt="" />
+                </button>
+                <button>
+                  <img src={gitHubLogo} alt="" />
+                </button>
+                <button>
+                  <img src={facebookLogo} alt="" />
+                </button>
+              </div>
             </form>
           </div>
         </div>

@@ -4,6 +4,7 @@ import Bikes from "../../Pages/Home/Categories/Bikes/Bikes";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login/Login";
 import Signup from "../../Pages/Login/Signup/Signup";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const { createBrowserRouter } = require("react-router-dom");
 
@@ -24,7 +25,11 @@ export const router = createBrowserRouter([
         path: "/category/:name",
         loader: ({ params }) =>
           fetch(`http://localhost:5000/categories/${params.name}`),
-        element: <Bikes></Bikes>,
+        element: (
+          <PrivateRoute>
+            <Bikes></Bikes>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",

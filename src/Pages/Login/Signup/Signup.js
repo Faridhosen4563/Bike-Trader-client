@@ -1,12 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import signup from "../../../assets/signup/signup.png";
+import googleLogo from "../../../assets/signup/icons8-google (1).svg";
+import gitHubLogo from "../../../assets/signup/icons8-github.svg";
+import facebookLogo from "../../../assets/signup/icons8-facebook.svg";
 import { AuthContext } from "../../../contexts/AuthProvider";
+import Swal from "sweetalert2";
 
 const Signup = () => {
-  const { createUser, updateInfo } = useContext(AuthContext);
-  const { register, handleSubmit } = useForm();
+  const { createUser, updateInfo, googleLogIn } = useContext(AuthContext);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [signupError, setSignupError] = useState("");
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const handleLogIn = (data) => {
     const img = data.image[0];
     const formData = new FormData();
@@ -23,6 +37,7 @@ const Signup = () => {
         if (imgData.success) {
           createUser(data.email, data.password)
             .then((result) => {
+              setSignupError("");
               const user = result.user;
               console.log(user);
               const userInfo = {
@@ -39,6 +54,7 @@ const Signup = () => {
             })
             .catch((error) => {
               console.error(error);
+              setSignupError(error.message);
             });
         }
         console.log(imgData);
@@ -63,8 +79,30 @@ const Signup = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
-          console.log(data);
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 500,
+          });
+          navigate(from, { replace: true });
         }
+      });
+  };
+
+  const handleGoogleLogIn = () => {
+    googleLogIn()
+      .then((result) => {
+        setSignupError("");
+        const user = result.user;
+        const type = "Buyer";
+        saveUser(user.displayName, user.email, user.photoURL, type);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.error(error);
+        setSignupError(error.message);
       });
   };
 
@@ -83,10 +121,13 @@ const Signup = () => {
               </label>
               <input
                 type="text"
-                {...register("name")}
-                placeholder="email"
+                {...register("name", { required: "Name is required" })}
+                placeholder="Enter your name"
                 className="input input-bordered"
               />
+              {errors.name && (
+                <p className="alert alert-error my-2">{errors.name?.message}</p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
@@ -94,9 +135,14 @@ const Signup = () => {
               </label>
               <input
                 type="file"
-                {...register("image")}
+                {...register("image", { required: "Photo is required" })}
                 className="file-input file-input-bordered w-full"
               />
+              {errors.image && (
+                <p className="alert alert-error my-2">
+                  {errors.image?.message}
+                </p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
@@ -116,10 +162,17 @@ const Signup = () => {
               </label>
               <input
                 type="email"
-                {...register("email")}
+                {...register("email", {
+                  required: "Email Address is required",
+                })}
                 placeholder="email"
                 className="input input-bordered"
               />
+              {errors.email && (
+                <p className="alert alert-error my-2">
+                  {errors.email?.message}
+                </p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
@@ -127,24 +180,55 @@ const Signup = () => {
               </label>
               <input
                 type="password"
-                {...register("password")}
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 character or more",
+                  },
+                  pattern: {
+                    value: /(?=.*[A-Z])(?=.*[!@#$?&*])(?=.*[0-9])(?=.*[a-z])/,
+                    message:
+                      "Password must have uppercase,special character,lowercase and number",
+                  },
+                })}
                 placeholder="password"
                 className="input input-bordered"
               />
+              {errors.password && (
+                <p className="alert alert-error my-2">
+                  {errors.password?.message}
+                </p>
+              )}
               <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
-                  Forgot password?
-                </a>
+                {signupError && (
+                  <p className="alert alert-error my-2">{signupError}</p>
+                )}
               </label>
             </div>
             <div className="form-control mt-6">
               <button type="submit" className="btn btn-primary">
-                Login
+                Sign Up
               </button>
             </div>
             <p className="text-center my-2">
-              Already have an account? Please <Link to="/login">Log In</Link>
+              Already have an account? Please{" "}
+              <Link to="/login" className="text-blue-400">
+                Log In
+              </Link>
             </p>
+            <div className="divider">OR</div>
+            <div className="flex justify-evenly">
+              <button onClick={handleGoogleLogIn}>
+                <img src={googleLogo} alt="" />
+              </button>
+              <button>
+                <img src={gitHubLogo} alt="" />
+              </button>
+              <button>
+                <img src={facebookLogo} alt="" />
+              </button>
+            </div>
           </form>
         </div>
       </div>
