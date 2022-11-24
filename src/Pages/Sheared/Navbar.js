@@ -10,6 +10,9 @@ const Navbar = () => {
       <li>
         <Link to="/category">Category</Link>
       </li>
+      <li>
+        <Link to="/login">Login</Link>
+      </li>
     </>
   );
   return (

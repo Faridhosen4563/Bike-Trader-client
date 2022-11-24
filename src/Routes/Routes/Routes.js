@@ -2,6 +2,7 @@ import Main from "../../Layout/Main";
 import Category from "../../Pages/Category/Category";
 import Bikes from "../../Pages/Home/Categories/Bikes/Bikes";
 import Home from "../../Pages/Home/Home/Home";
+import Login from "../../Pages/Login/Login/Login";
 
 const { createBrowserRouter } = require("react-router-dom");
 
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:5000/categories/${params.name}`),
         element: <Bikes></Bikes>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
       },
     ],
   },
