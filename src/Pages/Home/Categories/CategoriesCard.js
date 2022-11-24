@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CategoriesCard = ({ category }) => {
   const { name, img } = category;
@@ -11,7 +12,11 @@ const CategoriesCard = ({ category }) => {
         <div className="card-body items-center text-center">
           <h2 className="card-title">{name}</h2>
           <div className="card-actions w-full">
-            <button className="btn btn-primary w-full my-4">See All</button>
+            <Link to={`/category/${name}`} className="w-full">
+              <button className="btn btn-primary w-full my-4">
+                See All Bike
+              </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,0 +1,183 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+[
+    {
+        "name" : "John Carl",
+        "location" : "Dhaka",
+        "Bike" : "Pulsar 150cc",
+        "category" : "Standard Bike",
+        "price" : 1500,
+        "Condition" : "Good",
+        "Running" : "15000km",
+        "Description" : "Pulsar 150cc standard bike. Its very good condition. I am buy this bike 1years ago . I love this.",
+        "img" : "https://i.ibb.co/0Gjsbrm/bajaj-pulsar-150.jpg",
+        "phone" : "017778888377",
+        "date" : "11/24/22",
+        "email" : "john@carl.com"
+    },
+    {
+        "name" : "John Carl",
+        "location" : "Dhaka",
+        "Bike" : "Discover 125cc",
+        "category" : "Standard Bike",
+        "price" : 1200,
+        "Condition" : "Good",
+        "Running" : "25000km",
+        "Description" : "Discover 125cc standard bike. Its very good condition. I am buy this bike 1years ago . I love this.",
+        "img" : "https://i.ibb.co/P6yGZyd/bajaj-discover-125.jpg",
+        "phone" : "017778888377",
+        "date" : "11/24/22",
+        "email" : "john@carl.com"
+    },
+    {
+        "name" : "Korim Mia",
+        "location" : "Dhaka",
+        "Bike" : "Honda RC212V",
+        "category" : "Sport Bike",
+        "price" : 2200,
+        "Condition" : "Good",
+        "Running" : "25000km",
+        "Description" : "Honda RC212V sport bike. Its very good condition. I am buy this bike 1years ago . This bike now a days one of the fastest bike",
+        "img" : "https://i.ibb.co/7zr0RZg/best-higher-cc-rapsol.jpg",
+        "phone" : "01777834445",
+        "date" : "11/24/22",
+        "email" : "korim@mia.com"
+    },
+    {
+        "name" : "Mehedi hasan",
+        "location" : "Dhaka",
+        "Bike" : "Yamaha R15",
+        "category" : "Sport Bike",
+        "price" : 2500,
+        "Condition" : "Good",
+        "Running" : "25000km",
+        "Description" : "Yamaha r15 sport bike. Its very good condition. I am buy this bike 1years ago . This bike now a days one of the fastest bike",
+        "img" : "https://i.ibb.co/0Bpc20b/r15.jpg",
+        "phone" : "01867834445",
+        "date" : "11/24/22",
+        "email" : "korim@mia.com"
+    },
+    {
+        "name" : "Sakib khan",
+        "location" : "Dhaka",
+        "Bike" : "Harley Davidson Breakout",
+        "category" : "Cruiser Bike",
+        "price" : 1700,
+        "Condition" : "Good",
+        "Running" : "25000km",
+        "Description" : "Harley Davidson Breakout. Its very good condition. I am buy this bike 1years ago .",
+        "img" : "https://i.ibb.co/R3rsJ0z/harley-davidson.jpg",
+        "phone" : "01867834445",
+        "date" : "11/24/22",
+        "email" : "korim@mia.com"
+    },
+    {
+        "name" : "Salman khan",
+        "location" : "Dhaka",
+        "Bike" : "Yamaha BOLT",
+        "category" : "Cruiser Bike",
+        "price" : 1700,
+        "Condition" : "Good",
+        "Running" : "25000km",
+        "Description" : "Yamaha BOLT is Cruiser Bike. Its very good condition. I am buy this bike 1years ago .",
+        "img" : "https://i.ibb.co/dGDjSBg/yamaha.jpg",
+        "phone" : "01867834445",
+        "date" : "11/24/22",
+        "email" : "korim@mia.com"
+    },
+    {
+        "name" : "Salman shah",
+        "location" : "Dhaka",
+        "Bike" : "Yamaha-YZ450-F",
+        "category" : "Off Road Bike",
+        "price" : 1200,
+        "Condition" : "Good",
+        "Running" : "25000km",
+        "Description" : "Yamaha-YZ450-F is off rodding Bike. Its very good condition. I am buy this bike 1years ago . I use this bike you can easily tour any places ",
+        "img" : "https://i.ibb.co/LdPRJr5/Yamaha-YZ450-F.jpg",
+        "phone" : "01867834445",
+        "date" : "11/24/22",
+        "email" : "korim@mia.com"
+    },
+    {
+        "name" : "Nasim shah",
+        "location" : "Dhaka",
+        "Bike" : "KTM-450-XC-F",
+        "category" : "Off Road Bike",
+        "price" : 800,
+        "Condition" : "Good",
+        "Running" : "35000km",
+        "Description" : "KTM-450-XC-F is off rodding Bike. Its very good condition. I am buy this bike 1years ago . I use this bike you can easily tour any places ",
+        "img" : "https://i.ibb.co/pvfPDQW/13-KTM-450-XC-F-2021e.jpg",
+        "phone" : "0186783676",
+        "date" : "11/24/22",
+        "email" : "korim@mia.com"
+    },
+    {
+        "name" : "Nasir Khan",
+        "location" : "Dhaka",
+        "Bike" : "Yamaha-N-Max-1",
+        "category" : "Scooters",
+        "price" : 300,
+        "Condition" : "Good",
+        "Running" : "12000km",
+        "Description" : "Yamaha-N-Max-1 is off rodding Bike. Its very good condition. I am buy this bike 1years ago .  ",
+        "img" : "https://i.ibb.co/hZsPj46/Yamaha-N-Max-1.jpg",
+        "phone" : "01867837445",
+        "date" : "11/24/22",
+        "email" : "korim@mia.com"
+    },
+    {
+        "name" : "Sabbir hasan",
+        "location" : "Dhaka",
+        "Bike" : "Yamaha-Ray-ZR-125",
+        "category" : "Scooters",
+        "price" : 400,
+        "Condition" : "Good",
+        "Running" : "10000km",
+        "Description" : "Yamaha-Ray-ZR-125 is off rodding Bike. Its very good condition. I am buy this bike 1years ago .  ",
+        "img" : "https://i.ibb.co/DztCPyX/Yamaha-Ray-ZR-125-FI-bikegu.jpg",
+        "phone" : "01867834445",
+        "date" : "11/24/22",
+        "email" : "korim@mia.com"
+    },
+    {
+        "name" : "Rahim mia",
+        "location" : "Dhaka",
+        "Bike" : "Honda-CRF250",
+        "category" : "Dual purpose Bike",
+        "price" : 400,
+        "Condition" : "Good",
+        "Running" : "10000km",
+        "Description" : "Honda-CRF250 is Dual purpose Bike. Its very good condition. I am buy this bike 1years ago .  ",
+        "img" : "https://i.ibb.co/dbWCCP0/13-Honda-CRF250-Lweb.jpg",
+        "phone" : "01867834467",
+        "date" : "11/24/22",
+        "email" : "korim@mia.com"
+    },
+    {
+        "name" : "Lavlu mia",
+        "location" : "Dhaka",
+        "Bike" : "Honda-CRF250",
+        "category" : "Dual purpose Bike",
+        "price" : 250,
+        "Condition" : "Good",
+        "Running" : "20000km",
+        "Description" : "Honda-CRF250 is Dual purpose Bike. Its very good condition. I am buy this bike 1years ago .  ",
+        "img" : "https://i.ibb.co/TBKGFd5/duble-honda.png",
+        "phone" : "01867834445",
+        "date" : "11/24/22",
+        "email" : "korim@mia.com"
+    }
+]
