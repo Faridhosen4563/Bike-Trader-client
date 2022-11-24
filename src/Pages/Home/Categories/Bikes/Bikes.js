@@ -1,6 +1,7 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 import BikeCard from "./BikeCard";
+import BookingModal from "./BookingModal/BookingModal";
 
 const Bikes = () => {
   const bikes = useLoaderData();
@@ -18,6 +19,7 @@ const Bikes = () => {
           ))}
         </div>
       </div>
+      <BookingModal></BookingModal>
     </div>
   );
 };

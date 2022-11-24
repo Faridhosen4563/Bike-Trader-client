@@ -22,7 +22,12 @@ const BikeCard = ({ bikeInfo }) => {
           <p>Phone : {phone}</p>
           <p>Post Date : {date}</p>
           <div className="card-actions w-full">
-            <button className="btn btn-primary my-4 w-full">Book Now</button>
+            <label
+              htmlFor="booking-modal"
+              className="btn btn-primary my-4 w-full"
+            >
+              Book Now
+            </label>
           </div>
         </div>
       </div>
