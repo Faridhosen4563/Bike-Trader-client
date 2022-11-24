@@ -5,7 +5,7 @@ import signup from "../../../assets/signup/signup.png";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
 const Signup = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateInfo } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
   const handleLogIn = (data) => {
     const img = data.image[0];
@@ -25,6 +25,17 @@ const Signup = () => {
             .then((result) => {
               const user = result.user;
               console.log(user);
+              const userInfo = {
+                displayName: data.name,
+                photoURL: imgData.data.url,
+              };
+              updateInfo(userInfo)
+                .then(() => {
+                  saveUser(data.name, data.email, imgData.data.url, data.type);
+                })
+                .catch((error) => {
+                  console.error(error);
+                });
             })
             .catch((error) => {
               console.error(error);
@@ -34,6 +45,29 @@ const Signup = () => {
       });
     console.log(data, img);
   };
+
+  const saveUser = (name, email, img, type) => {
+    const user = {
+      name,
+      email,
+      img,
+      type,
+    };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          console.log(data);
+        }
+      });
+  };
+
   return (
     <div className="hero">
       <div className="hero-content grid grid-cols-1 md:grid-cols-2 gap-4 w-full justify-center items-center h-[1000px]">
