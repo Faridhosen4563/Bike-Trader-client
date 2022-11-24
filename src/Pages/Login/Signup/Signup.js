@@ -6,7 +6,21 @@ import signup from "../../../assets/signup/signup.png";
 const Signup = () => {
   const { register, handleSubmit } = useForm();
   const handleLogIn = (data) => {
-    console.log(data);
+    const img = data.image[0];
+    const formData = new FormData();
+    formData.append("image", img);
+    fetch(
+      `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMGBB_API_KEY}`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
+      .then((res) => res.json())
+      .then((imgData) => {
+        console.log(imgData);
+      });
+    console.log(data, img);
   };
   return (
     <div className="hero">
@@ -33,10 +47,9 @@ const Signup = () => {
                 <span className="label-text">Photo</span>
               </label>
               <input
-                type="text"
+                type="file"
                 {...register("image")}
-                placeholder="email"
-                className="input input-bordered"
+                className="file-input file-input-bordered w-full"
               />
             </div>
             <div className="form-control">
