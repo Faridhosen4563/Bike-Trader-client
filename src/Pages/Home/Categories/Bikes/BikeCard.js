@@ -1,6 +1,6 @@
 import React from "react";
 
-const BikeCard = ({ bikeInfo }) => {
+const BikeCard = ({ bikeInfo, setBikeData }) => {
   const { img, name, Bike, price, location, date, phone, Condition, Running } =
     bikeInfo;
   return (
@@ -23,6 +23,7 @@ const BikeCard = ({ bikeInfo }) => {
           <p>Post Date : {date}</p>
           <div className="card-actions w-full">
             <label
+              onClick={() => setBikeData(bikeInfo)}
               htmlFor="booking-modal"
               className="btn btn-primary my-4 w-full"
             >
