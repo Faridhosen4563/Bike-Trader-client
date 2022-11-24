@@ -51,7 +51,7 @@ const Login = () => {
                 </button>
               </div>
               <p className="text-center my-2">
-                New in BikeTrader? Please <Link to="/signup">Sign Up</Link>
+                Don't have an account? Please <Link to="/signup">Sign Up</Link>
               </p>
             </form>
           </div>
