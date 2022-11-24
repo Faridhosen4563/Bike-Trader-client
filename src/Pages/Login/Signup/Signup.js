@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import signup from "../../../assets/signup/signup.png";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const Signup = () => {
+  const { createUser } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
   const handleLogIn = (data) => {
     const img = data.image[0];
@@ -18,6 +20,16 @@ const Signup = () => {
     )
       .then((res) => res.json())
       .then((imgData) => {
+        if (imgData.success) {
+          createUser(data.email, data.password)
+            .then((result) => {
+              const user = result.user;
+              console.log(user);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
         console.log(imgData);
       });
     console.log(data, img);
