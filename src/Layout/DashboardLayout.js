@@ -25,29 +25,47 @@ const DashboardLayout = () => {
           <ul className="menu p-4 w-80  text-base-content">
             {role && role.role === "Buyer" && (
               <li>
-                <Link to="/dashboard/myorders">My Orders</Link>
+                <Link to="/dashboard/myorders" className="btn btn-info mb-2">
+                  My Orders
+                </Link>
               </li>
             )}
             {role && role.role === "Seller" && (
               <>
                 <li>
-                  <Link to="/dashboard/myorders">Add A Products</Link>
+                  <Link
+                    to="/dashboard/addproduct"
+                    className="btn btn-info mb-2"
+                  >
+                    Add A Products
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/myorders">My Products</Link>
+                  <Link
+                    to="/dashboard/myporducts"
+                    className="btn btn-info mb-2"
+                  >
+                    My Products
+                  </Link>
                 </li>
               </>
             )}
             {role && role.role === "Admin" && (
               <>
                 <li>
-                  <Link to="/dashboard/allseller">All Seller</Link>
+                  <Link to="/dashboard/allseller" className="btn btn-info mb-2">
+                    All Seller
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/allbuyer">All Buyer</Link>
+                  <Link to="/dashboard/allbuyer" className="btn btn-info mb-2">
+                    All Buyer
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/reported">Reported Items</Link>
+                  <Link to="/dashboard/reported" className="btn btn-info mb-2">
+                    Reported Items
+                  </Link>
                 </li>
               </>
             )}
