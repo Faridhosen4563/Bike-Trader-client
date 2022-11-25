@@ -3,35 +3,36 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import ConfirmationModal from "../../Sheared/ConfirmationModal";
 
-const Allseller = () => {
+const Allbuyer = () => {
   const [deletingItem, setDeletingItem] = useState(null);
   const closeModal = () => {
     setDeletingItem(null);
   };
-  const { data: sellers = [], refetch } = useQuery({
-    queryKey: ["sellers"],
+  const { data: buyers = [], refetch } = useQuery({
+    queryKey: ["buyers"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users/seller");
+      const res = await fetch("http://localhost:5000/users/buyer");
       const data = await res.json();
       return data;
     },
   });
 
-  const handleDelete = (seller) => {
-    fetch(`http://localhost:5000/users/buyer/${seller._id}`, {
+  const handleDelete = (buyer) => {
+    fetch(`http://localhost:5000/users/buyer/${buyer._id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {
-          toast.success(`${seller.name} has been deleted successfully`);
+          toast.success(`${buyer.name} has been deleted successfully`);
           refetch();
         }
       });
   };
+
   return (
     <div className="mx-5 my-8">
-      <h1 className="text-center text-3xl font-bold my-4">All Seller</h1>
+      <h1 className="text-center text-3xl font-bold my-4">ALL Buyer</h1>
       <div>
         <div className="overflow-x-auto my-8">
           <table className="table w-full">
@@ -46,24 +47,24 @@ const Allseller = () => {
               </tr>
             </thead>
             <tbody>
-              {sellers.map((seller, i) => (
-                <tr key={seller._id} className="hover">
+              {buyers.map((buyer, i) => (
+                <tr key={buyer._id} className="hover">
                   <th>{i + 1}</th>
                   <td>
                     {
                       <div className="avatar">
                         <div className="w-16 rounded-full border-2">
-                          <img src={seller.img} alt={seller.name} />
+                          <img src={buyer.img} alt={buyer.name} />
                         </div>
                       </div>
                     }
                   </td>
-                  <td>{seller.name}</td>
-                  <td>{seller.email}</td>
-                  <td>{seller.type}</td>
+                  <td>{buyer.name}</td>
+                  <td>{buyer.email}</td>
+                  <td>{buyer.type}</td>
                   <td>
                     <label
-                      onClick={() => setDeletingItem(seller)}
+                      onClick={() => setDeletingItem(buyer)}
                       htmlFor="confirmation-modal"
                       className="btn btn-outline"
                     >
@@ -78,8 +79,8 @@ const Allseller = () => {
       </div>
       {deletingItem && (
         <ConfirmationModal
-          title={`Are you sure you want to delete seller ${deletingItem.name}`}
-          message={`If you delete seller ${deletingItem.name}, Never back again!!!`}
+          title={`Are you sure you want to delete buyer ${deletingItem.name}`}
+          message={`If you delete buyer ${deletingItem.name}, Never back again!!!`}
           closeModal={closeModal}
           deletingItem={deletingItem}
           handleDelete={handleDelete}
@@ -89,4 +90,4 @@ const Allseller = () => {
   );
 };
 
-export default Allseller;
+export default Allbuyer;

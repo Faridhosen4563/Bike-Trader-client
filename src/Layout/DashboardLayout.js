@@ -22,10 +22,12 @@ const DashboardLayout = () => {
         </div>
         <div className="drawer-side">
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 bg-base-100 text-base-content">
-            <li>
-              <Link to="/dashboard/myorders">My Orders</Link>
-            </li>
+          <ul className="menu p-4 w-80  text-base-content">
+            {role && role.role === "Buyer" && (
+              <li>
+                <Link to="/dashboard/myorders">My Orders</Link>
+              </li>
+            )}
             {role && role.role === "Seller" && (
               <>
                 <li>
@@ -42,7 +44,10 @@ const DashboardLayout = () => {
                   <Link to="/dashboard/allseller">All Seller</Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/myorders">All Buyer</Link>
+                  <Link to="/dashboard/allbuyer">All Buyer</Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/reported">Reported Items</Link>
                 </li>
               </>
             )}
