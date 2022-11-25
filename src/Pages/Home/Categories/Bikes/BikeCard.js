@@ -1,8 +1,18 @@
 import React from "react";
 
 const BikeCard = ({ bikeInfo, setBikeData }) => {
-  const { img, name, Bike, price, location, date, phone, Condition, Running } =
-    bikeInfo;
+  const {
+    img,
+    name,
+    Bike,
+    price,
+    location,
+    date,
+    phone,
+    Condition,
+    Running,
+    uses,
+  } = bikeInfo;
   return (
     <div>
       <div className="card w-full shadow-xl">
@@ -15,6 +25,7 @@ const BikeCard = ({ bikeInfo, setBikeData }) => {
           <p>Price : ${price}</p>
           <p>Location : {location}</p>
           <p>Running : {Running}</p>
+          <p>Year of Uses : {uses}</p>
           <p>Bike Condition : {Condition}</p>
           <hr />
           <p>Seller Contact information</p>

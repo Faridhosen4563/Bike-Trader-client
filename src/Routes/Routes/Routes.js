@@ -1,9 +1,14 @@
+import DashboardLayout from "../../Layout/DashboardLayout";
 import Main from "../../Layout/Main";
 import Category from "../../Pages/Category/Category";
+import Allseller from "../../Pages/Dashboard/Allseller/Allseller";
+import Dashboard from "../../Pages/Dashboard/Dashboard/Dashboard";
+import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import Bikes from "../../Pages/Home/Categories/Bikes/Bikes";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login/Login";
 import Signup from "../../Pages/Login/Signup/Signup";
+import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const { createBrowserRouter } = require("react-router-dom");
@@ -38,6 +43,36 @@ export const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup></Signup>,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout></DashboardLayout>,
+    children: [
+      {
+        path: "/dashboard",
+        element: (
+          <PrivateRoute>
+            <Dashboard></Dashboard>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/myorders",
+        element: (
+          <PrivateRoute>
+            <MyOrders></MyOrders>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/allseller",
+        element: (
+          <AdminRoute>
+            <Allseller></Allseller>
+          </AdminRoute>
+        ),
       },
     ],
   },
