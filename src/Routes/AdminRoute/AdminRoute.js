@@ -7,7 +7,6 @@ import useRole from "../../hooks/useRole";
 const AdminRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const [role, isLoading] = useRole(user?.email);
-  console.log(role.role, isLoading);
   const location = useLocation();
 
   if (loading || isLoading) {

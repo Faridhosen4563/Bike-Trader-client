@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 const BookingModal = ({ bikeData, setBikeData }) => {
   const { user } = useContext(AuthContext);
-  const { _id, Bike, price } = bikeData;
+  const { _id, Bike, price, img } = bikeData;
 
   const handleModal = (event) => {
     event.preventDefault();
@@ -18,6 +18,7 @@ const BookingModal = ({ bikeData, setBikeData }) => {
       bikeId: _id,
       bikeModel: Bike,
       price: price,
+      img: img,
       phone,
       location,
     };
