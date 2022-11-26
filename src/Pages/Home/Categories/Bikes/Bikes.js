@@ -1,11 +1,35 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
 import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../../../contexts/AuthProvider";
 import BikeCard from "./BikeCard";
 import BookingModal from "./BookingModal/BookingModal";
 
 const Bikes = () => {
+  const { user } = useContext(AuthContext);
   const bikes = useLoaderData();
   const [bikeData, setBikeData] = useState(null);
+  const handleReport = (reportData) => {
+    const report = {
+      ...reportData,
+      reporterName: user?.displayName,
+      reporterEmail: user?.email,
+    };
+
+    fetch("http://localhost:5000/reports", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(report),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success("Reported to admin successful");
+        }
+      });
+  };
   return (
     <div className="mx-5">
       <h1 className="text-center text-2xl font-bold my-12">
@@ -19,6 +43,7 @@ const Bikes = () => {
               key={bike._id}
               bikeInfo={bike}
               setBikeData={setBikeData}
+              handleReport={handleReport}
             ></BikeCard>
           ))}
         </div>

@@ -29,6 +29,20 @@ const Allseller = () => {
         }
       });
   };
+
+  const handleVerify = (seller) => {
+    fetch(`http://localhost:5000/users/sellerVerify/${seller._id}`, {
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success(`${seller.name} is verify successfully`);
+          refetch();
+        }
+      });
+  };
+
   return (
     <div className="mx-5 my-8">
       <h1 className="text-center text-3xl font-bold my-4">All Seller</h1>
@@ -42,6 +56,7 @@ const Allseller = () => {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Job</th>
+                <th>Verify</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -61,6 +76,18 @@ const Allseller = () => {
                   <td>{seller.name}</td>
                   <td>{seller.email}</td>
                   <td>{seller.type}</td>
+                  <td>
+                    {seller.verify ? (
+                      <span>Verified</span>
+                    ) : (
+                      <button
+                        onClick={() => handleVerify(seller)}
+                        className="btn btn-primary"
+                      >
+                        make verify
+                      </button>
+                    )}
+                  </td>
                   <td>
                     <label
                       onClick={() => setDeletingItem(seller)}

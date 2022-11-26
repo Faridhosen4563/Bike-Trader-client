@@ -36,6 +36,28 @@ const MyProducts = () => {
       });
   };
 
+  const handleAdvertise = (advertise) => {
+    const advertiseData = {
+      advData: advertise._id,
+      img: advertise.img,
+      bike: advertise.Bike,
+      price: advertise.price,
+    };
+    fetch("http://localhost:5000/advertises", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(advertiseData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success("Your product successfully added in Advertise");
+        }
+      });
+  };
+
   return (
     <div className="mx-5 my-8">
       <h1 className="text-center text-3xl font-bold my-4">My Products</h1>
@@ -66,9 +88,14 @@ const MyProducts = () => {
                     }
                   </td>
                   <td>{product.Bike}</td>
-                  <td>{product.email}</td>
+                  <td>{product.sold ? "sold" : "unsold"}</td>
                   <td>
-                    <button className="btn btn-outline">Make Advertise</button>
+                    <button
+                      onClick={() => handleAdvertise(product)}
+                      className="btn btn-outline"
+                    >
+                      Make Advertise
+                    </button>
                   </td>
                   <td>
                     <label

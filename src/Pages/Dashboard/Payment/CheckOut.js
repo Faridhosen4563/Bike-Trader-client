@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import toast from "react-hot-toast";
 
 const CheckOut = ({ booking }) => {
   const [cardError, setCardError] = useState("");
@@ -83,6 +84,7 @@ const CheckOut = ({ booking }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.insertedId) {
+            toast.success("Congrats!!! Your payment was successful");
             setSuccess("Congrats!!! Your payment was successful");
             setTransactionId(paymentIntent.id);
             setProcessing(false);
