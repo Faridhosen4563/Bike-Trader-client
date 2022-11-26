@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
+import { AuthContext } from "../../../contexts/AuthProvider";
 import ConfirmationModal from "../../Sheared/ConfirmationModal";
 
 const ReportedItem = () => {
+  const { logOut } = useContext(AuthContext);
   const [deletingItem, setDeletingItem] = useState(null);
   const closeModal = () => {
     setDeletingItem(null);
@@ -11,7 +13,14 @@ const ReportedItem = () => {
   const { data: reportItems = [], refetch } = useQuery({
     queryKey: ["reportItems"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/reports");
+      const res = await fetch("http://localhost:5000/reports", {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+        },
+      });
+      if (res.status === 401 || res.status === 403) {
+        return logOut();
+      }
       const data = await res.json();
       return data;
     },
@@ -24,8 +33,7 @@ const ReportedItem = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        if (data.acknowledged) {
+        if (data.deletedCount > 0) {
           toast.success(`${deleteItem.Bike} has been deleted successfully`);
           refetch();
         }

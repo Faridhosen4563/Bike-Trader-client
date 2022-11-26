@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
+import { AuthContext } from "../../../contexts/AuthProvider";
 import ConfirmationModal from "../../Sheared/ConfirmationModal";
 
 const Allseller = () => {
+  const { logOut } = useContext(AuthContext);
   const [deletingItem, setDeletingItem] = useState(null);
   const closeModal = () => {
     setDeletingItem(null);
@@ -11,7 +13,14 @@ const Allseller = () => {
   const { data: sellers = [], refetch } = useQuery({
     queryKey: ["sellers"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users/seller");
+      const res = await fetch("http://localhost:5000/users/seller", {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+        },
+      });
+      if (res.status === 401 || res.status === 403) {
+        return logOut();
+      }
       const data = await res.json();
       return data;
     },
@@ -20,8 +29,16 @@ const Allseller = () => {
   const handleDelete = (seller) => {
     fetch(`http://localhost:5000/users/buyer/${seller._id}`, {
       method: "DELETE",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+      },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          return logOut();
+        }
+        return res.json();
+      })
       .then((data) => {
         if (data.deletedCount > 0) {
           toast.success(`${seller.name} has been deleted successfully`);
@@ -33,8 +50,16 @@ const Allseller = () => {
   const handleVerify = (seller) => {
     fetch(`http://localhost:5000/users/sellerVerify/${seller._id}`, {
       method: "PUT",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+      },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          return logOut();
+        }
+        return res.json();
+      })
       .then((data) => {
         if (data.acknowledged) {
           toast.success(`${seller.name} is verify successfully`);

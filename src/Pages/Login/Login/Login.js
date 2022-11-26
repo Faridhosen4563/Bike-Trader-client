@@ -7,6 +7,7 @@ import gitHubLogo from "../../../assets/signup/icons8-github.svg";
 import facebookLogo from "../../../assets/signup/icons8-facebook.svg";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import toast from "react-hot-toast";
+import useToken from "../../../hooks/useToken";
 
 const Login = () => {
   const { logIn, googleLogIn } = useContext(AuthContext);
@@ -17,13 +18,19 @@ const Login = () => {
   const location = useLocation();
   const form = location.state?.form?.pathname || "/";
 
+  const [logInEmail, setLogInEmail] = useState("");
+  const { token } = useToken(logInEmail);
+  if (token) {
+    navigate(form, { replace: true });
+  }
+
   const handleLogIn = (data) => {
     logIn(data.email, data.password)
       .then((result) => {
         setLogInError("");
         const user = result.user;
-        console.log(user);
-        navigate(form, { replace: true });
+        setLogInEmail(data.email);
+        toast.success("Log in successful");
       })
       .catch((error) => {
         console.error(error);
@@ -34,9 +41,10 @@ const Login = () => {
   const handleGoogleLogIn = () => {
     googleLogIn()
       .then((result) => {
+        const user = result.user;
         setLogInError("");
-        toast.success("Done");
-        navigate(form, { replace: true });
+        setLogInEmail(user?.email);
+        toast.success("Log in successful");
       })
       .catch((error) => {
         console.error(error);

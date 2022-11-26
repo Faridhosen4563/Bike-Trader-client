@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const [categories, setCategories] = useState([]);
   const currentDate = new Date().toLocaleDateString();
   const navigate = useNavigate();
@@ -56,10 +56,18 @@ const AddProduct = () => {
             method: "POST",
             headers: {
               "content-type": "application/json",
+              authorization: `Bearer ${localStorage.getItem(
+                "bikeTraderToken"
+              )}`,
             },
             body: JSON.stringify(bikeData),
           })
-            .then((res) => res.json())
+            .then((res) => {
+              if (res.status === 401 || res.status === 403) {
+                return logOut();
+              }
+              return res.json();
+            })
             .then((data) => {
               if (data.acknowledged) {
                 toast.success("Added a product successfully");

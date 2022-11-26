@@ -28,7 +28,6 @@ const BikeCard = ({ bikeInfo, setBikeData, handleReport }) => {
       return data;
     },
   });
-  console.log(user);
 
   return (
     <div>

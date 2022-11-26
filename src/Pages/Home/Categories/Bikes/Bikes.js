@@ -20,6 +20,7 @@ const Bikes = () => {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
       },
       body: JSON.stringify(report),
     })

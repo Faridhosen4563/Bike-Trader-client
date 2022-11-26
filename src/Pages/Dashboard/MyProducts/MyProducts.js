@@ -6,7 +6,7 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import ConfirmationModal from "../../Sheared/ConfirmationModal";
 
 const MyProducts = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const [deletingItem, setDeletingItem] = useState(null);
   const closeModal = () => {
     setDeletingItem(null);
@@ -16,8 +16,16 @@ const MyProducts = () => {
     queryKey: ["products", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/products?email=${user?.email}`
+        `http://localhost:5000/products?email=${user?.email}`,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+          },
+        }
       );
+      if (res.status === 401 || res.status === 403) {
+        return logOut();
+      }
       const data = await res.json();
       return data;
     },
@@ -26,8 +34,16 @@ const MyProducts = () => {
   const handleDelete = (product) => {
     fetch(`http://localhost:5000/bikes/${product._id}`, {
       method: "DELETE",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+      },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          return logOut();
+        }
+        return res.json();
+      })
       .then((data) => {
         if (data.deletedCount > 0) {
           toast.success(`${product.Bike} has been deleted successfully`);
@@ -47,10 +63,16 @@ const MyProducts = () => {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
       },
       body: JSON.stringify(advertiseData),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          return logOut();
+        }
+        return res.json();
+      })
       .then((data) => {
         if (data.acknowledged) {
           toast.success("Your product successfully added in Advertise");

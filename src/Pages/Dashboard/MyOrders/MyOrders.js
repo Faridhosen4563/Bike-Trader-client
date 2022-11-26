@@ -1,20 +1,68 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider";
+import ConfirmationModal from "../../Sheared/ConfirmationModal";
 
 const MyOrders = () => {
-  const { user } = useContext(AuthContext);
-  const { data: bookings = [] } = useQuery({
+  const { user, logOut } = useContext(AuthContext);
+  const [deletingItem, setDeletingItem] = useState(null);
+  const closeModal = () => {
+    setDeletingItem(null);
+  };
+
+  const { data: bookings = [], refetch } = useQuery({
     queryKey: ["bookings", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/bookings?email=${user.email}`
+        `http://localhost:5000/bookings?email=${user.email}`,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+          },
+        }
       );
+      if (res.status === 401 || res.status === 403) {
+        return logOut();
+      }
       const data = await res.json();
       return data;
     },
   });
+
+  const handleDelete = (booking) => {
+    fetch(`http://localhost:5000/bookings/${booking._id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          return logOut();
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.deletedCount > 0) {
+          toast.success(`${booking.bikeModel} has been deleted successfully`);
+          refetch();
+        }
+      });
+  };
+
+  if (bookings.length === 0) {
+    return (
+      <p className="text-2xl text-center font-semibold text-blue-400 flex justify-center items-center h-full">
+        Please buy or booked some bike. Go to{" "}
+        <Link to="/category" className="text-blue-600">
+          {" "}
+          Category
+        </Link>
+      </p>
+    );
+  }
   return (
     <div className="mx-5 my-8">
       <h1 className="text-center text-3xl font-bold my-4">
@@ -29,7 +77,7 @@ const MyOrders = () => {
                 <th>Photo</th>
                 <th>Title</th>
                 <th>Price</th>
-                <th>Job</th>
+                <th>Delete</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -48,7 +96,15 @@ const MyOrders = () => {
                   </td>
                   <td>{booking.bikeModel}</td>
                   <td>${booking.price}</td>
-                  <td>{booking.type}</td>
+                  <td>
+                    <label
+                      onClick={() => setDeletingItem(booking)}
+                      htmlFor="confirmation-modal"
+                      className="btn btn-outline"
+                    >
+                      Delete
+                    </label>
+                  </td>
                   <td>
                     {booking?.paid ? (
                       <span className="text-green-400">Paid</span>
@@ -64,6 +120,15 @@ const MyOrders = () => {
           </table>
         </div>
       </div>
+      {deletingItem && (
+        <ConfirmationModal
+          title={`Are you sure you want to delete order ${deletingItem.bikeModel}`}
+          message={`If you delete order ${deletingItem.bikeModel}, Never back again!!!`}
+          closeModal={closeModal}
+          deletingItem={deletingItem}
+          handleDelete={handleDelete}
+        ></ConfirmationModal>
+      )}
     </div>
   );
 };
