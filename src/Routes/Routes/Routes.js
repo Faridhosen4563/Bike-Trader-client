@@ -35,7 +35,13 @@ export const router = createBrowserRouter([
       {
         path: "/category/:name",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/categories/${params.name}`),
+          fetch(`http://localhost:5000/categories/${params.name}`, {
+            headers: {
+              authorization: `Bearer ${localStorage.getItem(
+                "bikeTraderToken"
+              )}`,
+            },
+          }),
         element: (
           <PrivateRoute>
             <Bikes></Bikes>

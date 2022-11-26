@@ -7,6 +7,7 @@ import gitHubLogo from "../../../assets/signup/icons8-github.svg";
 import facebookLogo from "../../../assets/signup/icons8-facebook.svg";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import Swal from "sweetalert2";
+import useToken from "../../../hooks/useToken";
 
 const Signup = () => {
   const { createUser, updateInfo, googleLogIn } = useContext(AuthContext);
@@ -20,6 +21,11 @@ const Signup = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  const [userCreateEmail, setUserCreateEmail] = useState("");
+  const { token } = useToken(userCreateEmail);
+  if (token) {
+    navigate(from, { replace: true });
+  }
 
   const handleLogIn = (data) => {
     const img = data.image[0];
@@ -79,6 +85,7 @@ const Signup = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
+          setUserCreateEmail(email);
           Swal.fire({
             position: "center",
             icon: "success",
@@ -86,7 +93,6 @@ const Signup = () => {
             showConfirmButton: false,
             timer: 500,
           });
-          navigate(from, { replace: true });
         }
       });
   };
@@ -98,7 +104,6 @@ const Signup = () => {
         const user = result.user;
         const type = "Buyer";
         saveUser(user.displayName, user.email, user.photoURL, type);
-        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);
