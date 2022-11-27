@@ -8,6 +8,7 @@ import facebookLogo from "../../../assets/signup/icons8-facebook.svg";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import Swal from "sweetalert2";
 import useToken from "../../../hooks/useToken";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const { createUser, updateInfo, googleLogIn } = useContext(AuthContext);
@@ -107,6 +108,10 @@ const Signup = () => {
         console.error(error);
         setSignupError(error.message);
       });
+  };
+
+  const handleSocial = () => {
+    toast.success("Coming soon. Please try Google or Email/password");
   };
 
   return (
@@ -225,10 +230,10 @@ const Signup = () => {
               <button onClick={handleGoogleLogIn}>
                 <img src={googleLogo} alt="" />
               </button>
-              <button>
+              <button onClick={handleSocial}>
                 <img src={gitHubLogo} alt="" />
               </button>
-              <button>
+              <button onClick={handleSocial}>
                 <img src={facebookLogo} alt="" />
               </button>
             </div>

@@ -30,8 +30,16 @@ const ReportedItem = () => {
     console.log(deleteItem._id);
     fetch(`http://localhost:5000/reports/${deleteItem._id}`, {
       method: "DELETE",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+      },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          return logOut();
+        }
+        return res.json();
+      })
       .then((data) => {
         if (data.deletedCount > 0) {
           toast.success(`${deleteItem.Bike} has been deleted successfully`);

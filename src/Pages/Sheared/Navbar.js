@@ -52,7 +52,7 @@ const Navbar = () => {
               {menuItem}
             </ul>
           </div>
-          <Link className="btn btn-ghost font-bold text-xl">
+          <Link to="/" className="btn btn-ghost font-bold text-xl">
             <img src={logo} alt="logo" className="h-12 w-12" /> Bike Trader
           </Link>
         </div>

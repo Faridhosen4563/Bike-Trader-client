@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import ConfirmationModal from "../../Sheared/ConfirmationModal";
+import { FcApproval } from "react-icons/fc";
 
 const Allseller = () => {
   const { logOut } = useContext(AuthContext);
@@ -98,12 +99,21 @@ const Allseller = () => {
                       </div>
                     }
                   </td>
-                  <td>{seller.name}</td>
+                  <td>
+                    <p className="flex items-center">
+                      {seller.name}
+                      {seller.verify && (
+                        <FcApproval className="ml-2"></FcApproval>
+                      )}
+                    </p>
+                  </td>
                   <td>{seller.email}</td>
                   <td>{seller.type}</td>
                   <td>
                     {seller.verify ? (
-                      <span>Verified</span>
+                      <span className="text-green-400 flex items-center">
+                        Verified <FcApproval className="ml-2"></FcApproval>
+                      </span>
                     ) : (
                       <button
                         onClick={() => handleVerify(seller)}

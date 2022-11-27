@@ -55,6 +55,10 @@ const Login = () => {
       });
   };
 
+  const handleSocial = () => {
+    toast.success("Coming soon. Please try Google or Email/password");
+  };
+
   const accessToken = (email) => {
     fetch(`http://localhost:5000/jwt?email=${email}`)
       .then((res) => res.json())
@@ -124,10 +128,10 @@ const Login = () => {
                 <button onClick={handleGoogleLogIn}>
                   <img src={googleLogo} alt="" />
                 </button>
-                <button>
+                <button onClick={handleSocial}>
                   <img src={gitHubLogo} alt="" />
                 </button>
-                <button>
+                <button onClick={handleSocial}>
                   <img src={facebookLogo} alt="" />
                 </button>
               </div>
