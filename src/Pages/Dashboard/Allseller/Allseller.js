@@ -69,6 +69,28 @@ const Allseller = () => {
       });
   };
 
+  const handleAdmin = (seller) => {
+    console.log(seller);
+    fetch(`http://localhost:5000/makeAdmin/${seller._id}`, {
+      method: "PUT",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          return logOut();
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast.success(`${seller.name} admin successfully updated`);
+          refetch();
+        }
+      });
+  };
+
   return (
     <div className="mx-5 my-8">
       <h1 className="text-center text-3xl font-bold my-4">All Seller</h1>
@@ -83,6 +105,7 @@ const Allseller = () => {
                 <th>Email</th>
                 <th>Job</th>
                 <th>Verify</th>
+                <th>Make Admin</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -122,6 +145,14 @@ const Allseller = () => {
                         make verify
                       </button>
                     )}
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handleAdmin(seller)}
+                      className="btn btn-outline"
+                    >
+                      Make Admin
+                    </button>
                   </td>
                   <td>
                     <label
