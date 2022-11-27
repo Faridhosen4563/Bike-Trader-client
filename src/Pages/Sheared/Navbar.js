@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
+import logo from "../../assets/logo/logo.png";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -11,20 +12,20 @@ const Navbar = () => {
   };
   const menuItem = (
     <>
-      <li>
+      <li className="text-lg font-semibold">
         <Link to="/">Home</Link>
       </li>
-      <li>
+      <li className="text-lg font-semibold">
         <Link to="/category">Category</Link>
       </li>
-      <li>
-        <Link to="/login">Login</Link>
+      <li className="text-lg font-semibold">
+        <Link to="/blogs">Blogs</Link>
       </li>
     </>
   );
   return (
     <div>
-      <div className="navbar bg-base-100">
+      <div className="navbar my-8">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -51,7 +52,9 @@ const Navbar = () => {
               {menuItem}
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+          <Link className="btn btn-ghost font-bold text-xl">
+            <img src={logo} alt="logo" className="h-12 w-12" /> Bike Trader
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal p-0">{menuItem}</ul>
@@ -104,7 +107,12 @@ const Navbar = () => {
               </label>
             </>
           ) : (
-            <Link to="/login">Login</Link>
+            <Link
+              to="/login"
+              className="btn bg-gradient-to-r from-sky-500 to-indigo-500"
+            >
+              Login
+            </Link>
           )}
         </div>
       </div>

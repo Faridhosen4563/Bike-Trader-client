@@ -64,7 +64,7 @@ const BikeCard = ({ bikeInfo, setBikeData, handleReport }) => {
               <label
                 onClick={() => setBikeData(bikeInfo)}
                 htmlFor="booking-modal"
-                className="btn btn-primary my-4 w-full"
+                className="btn btn-primary bg-gradient-to-r from-sky-500 to-indigo-500 my-4 w-full"
               >
                 Book Now
               </label>

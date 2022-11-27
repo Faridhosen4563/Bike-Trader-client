@@ -18,9 +18,10 @@ const Signup = () => {
   } = useForm();
   const [signupError, setSignupError] = useState("");
 
-  const navigate = useNavigate();
   const location = useLocation();
+  const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
+
   const [userCreateEmail, setUserCreateEmail] = useState("");
   const { token } = useToken(userCreateEmail);
   if (token) {
@@ -44,8 +45,6 @@ const Signup = () => {
           createUser(data.email, data.password)
             .then((result) => {
               setSignupError("");
-              const user = result.user;
-              console.log(user);
               const userInfo = {
                 displayName: data.name,
                 photoURL: imgData.data.url,
@@ -63,9 +62,7 @@ const Signup = () => {
               setSignupError(error.message);
             });
         }
-        console.log(imgData);
       });
-    console.log(data, img);
   };
 
   const saveUser = (name, email, img, type) => {
@@ -104,6 +101,7 @@ const Signup = () => {
         const user = result.user;
         const type = "Buyer";
         saveUser(user.displayName, user.email, user.photoURL, type);
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);

@@ -13,7 +13,7 @@ const CategoriesCard = ({ category }) => {
           <h2 className="card-title">{name}</h2>
           <div className="card-actions w-full">
             <Link to={`/category/${name}`} className="w-full">
-              <button className="btn btn-primary w-full my-4">
+              <button className="btn btn-primary bg-gradient-to-r from-sky-500 to-indigo-500 w-full my-4">
                 See All Bike
               </button>
             </Link>

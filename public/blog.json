@@ -1,0 +1,22 @@
+[
+    {
+        "Question" : "What are the different ways to manage a state in a React application?",
+        "Answer" : "There are several other ways to manage state​s in React, including the use of: Hooks. React Context API. Apollo Link State.We have to set initial state value inside constructor function and set click event handler of the element upon which click, results in changing state. Then pass the function to the click handler and change the state of the component inside the function using setState.Every React component has a built-in state. This state is an object which stores the property values that belong to a component. State is able to keep data from different components in-sync because each state update re-renders all relevant components.svg viewer.The built-in way that React provides for setting component states is by using setState() and adding “local state” to a class. There are several other ways to manage state​s in React, including the use of: Hooks,React Context API,Apollo Link State"
+
+    },
+    {
+        "Question" : "How does prototypical inheritance work?",
+        "Answer" : "Simply put, prototypical inheritance refers to the ability to access object properties from another object. We use a JavaScript prototype to add new properties and methods to an existing object constructor. We can then essentially tell our JS code to inherit properties from a prototype."
+
+    },
+    {
+        "Question" : "What is a unit test? Why should we write unit tests?",
+        "Answer" : "Unit Testing is a testing method that tests an individual unit of software in isolation. Unit testing for React Apps means testing an individual React Component. “Unit testing is a great discipline, which can lead to 40% – 80% reductions in bug density.” – Eric Elliotte. Unit testing ensures that all code meets quality standards before it's deployed. This ensures a reliable engineering environment where quality is paramount. Over the course of the product development life cycle, unit testing saves time and money, and helps developers write better code, more efficiently."
+
+    },
+    {
+        "Question" : "Difference between React, Angular and Vue?",
+        "Answer" : "React can be used as a UI library to render elements, without enforcing a specific project structure, and that’s why it’s not strictly a framework.React Elements are the smallest building blocks of React apps. They are more powerful than DOM elements because the React DOM makes sure to update them efficiently whenever something changes.React is based on JavaScript, but it’s mostly combined with JSX (JavaScript XML), a syntax extension that allows you to create elements that contain HTML and JavaScript at the same time.The Vue.js core library focuses on the View layer only. It’s called a progressive framework because you can extend its functionality with official and third-party packages, such as Vue Router or Vuex, to turn it into an actual framework.Vue’s templating syntax lets you create View components, and it combines familiar HTML with special directives and features. This templating syntax is preferred, even though raw JavaScript and JSX are also supported.SFCs are the recommended way to organize code in Vue.js projects, especially larger ones. Tools such as Webpack or Browserify are required to transpile SFCs into working JavaScript code.AngularJS, the original framework, is an MVC (Model-View-Controller)) framework. But in Angular 2, there’s no strict association with MV*-patterns as it is also component-based.Projects in Angular are structured into Modules, Components, and Services. Each Angular application has at least one root component and one root module.Angular is built in TypeScript, so its use is recommended to get the most seamless experience, but plain JavaScript is also supported."
+
+    }
+]

@@ -26,7 +26,7 @@ const Advertise = () => {
   if (advertises.length > 0) {
     return (
       <div className="my-20">
-        <h1 className="text-center text-2xl font-semibold text-green-400 my-6">
+        <h1 className="text-center text-2xl font-semibold text-blue-400 my-6">
           Advertise
         </h1>
         <Slider {...settings}>

@@ -14,23 +14,25 @@ const Login = () => {
   const [logInError, setLogInError] = useState("");
   const { register, handleSubmit } = useForm();
 
-  const navigate = useNavigate();
   const location = useLocation();
-  const form = location.state?.form?.pathname || "/";
+  const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
 
   const [logInEmail, setLogInEmail] = useState("");
   const { token } = useToken(logInEmail);
-  if (token) {
-    navigate(form, { replace: true });
-  }
+  // if (token) {
+  //   navigate(from, { replace: true });
+  // }
 
   const handleLogIn = (data) => {
     logIn(data.email, data.password)
       .then((result) => {
         setLogInError("");
         const user = result.user;
-        setLogInEmail(data.email);
+        accessToken(data.email);
         toast.success("Log in successful");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);
@@ -43,12 +45,24 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         setLogInError("");
-        setLogInEmail(user?.email);
+        accessToken(user?.email);
         toast.success("Log in successful");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);
         setLogInError(error.message);
+      });
+  };
+
+  const accessToken = (email) => {
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem("bikeTraderToken", data.token);
+          console.log(data, token);
+        }
       });
   };
 
