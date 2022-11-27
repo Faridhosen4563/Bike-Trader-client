@@ -14,6 +14,7 @@ import Bikes from "../../Pages/Home/Categories/Bikes/Bikes";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login/Login";
 import Signup from "../../Pages/Login/Signup/Signup";
+import ErrorElement from "../../Pages/Sheared/ErrorElement";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import SellerRoute from "../SellerRoute/SellerRoute";
@@ -24,6 +25,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorElement></ErrorElement>,
     children: [
       {
         path: "/",
@@ -66,6 +68,7 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout></DashboardLayout>,
+    errorElement: <ErrorElement></ErrorElement>,
     children: [
       {
         path: "/dashboard",
