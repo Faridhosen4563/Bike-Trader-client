@@ -14,11 +14,14 @@ const Allseller = () => {
   const { data: sellers = [], refetch } = useQuery({
     queryKey: ["sellers"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users/seller", {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
-        },
-      });
+      const res = await fetch(
+        "https://used-car-assigment-server.vercel.app/users/seller",
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+          },
+        }
+      );
       if (res.status === 401 || res.status === 403) {
         return logOut();
       }
@@ -28,12 +31,15 @@ const Allseller = () => {
   });
 
   const handleDelete = (seller) => {
-    fetch(`http://localhost:5000/users/buyer/${seller._id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
-      },
-    })
+    fetch(
+      `https://used-car-assigment-server.vercel.app/users/buyer/${seller._id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+        },
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           return logOut();
@@ -49,12 +55,15 @@ const Allseller = () => {
   };
 
   const handleVerify = (seller) => {
-    fetch(`http://localhost:5000/users/sellerVerify/${seller._id}`, {
-      method: "PUT",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
-      },
-    })
+    fetch(
+      `https://used-car-assigment-server.vercel.app/users/sellerVerify/${seller._id}`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+        },
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           return logOut();
@@ -64,28 +73,6 @@ const Allseller = () => {
       .then((data) => {
         if (data.acknowledged) {
           toast.success(`${seller.name} is verify successfully`);
-          refetch();
-        }
-      });
-  };
-
-  const handleAdmin = (seller) => {
-    console.log(seller);
-    fetch(`http://localhost:5000/makeAdmin/${seller._id}`, {
-      method: "PUT",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
-      },
-    })
-      .then((res) => {
-        if (res.status === 401 || res.status === 403) {
-          return logOut();
-        }
-        return res.json();
-      })
-      .then((data) => {
-        if (data.modifiedCount > 0) {
-          toast.success(`${seller.name} admin successfully updated`);
           refetch();
         }
       });
@@ -105,7 +92,6 @@ const Allseller = () => {
                 <th>Email</th>
                 <th>Job</th>
                 <th>Verify</th>
-                <th>Make Admin</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -145,14 +131,6 @@ const Allseller = () => {
                         make verify
                       </button>
                     )}
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => handleAdmin(seller)}
-                      className="btn btn-outline"
-                    >
-                      Make Admin
-                    </button>
                   </td>
                   <td>
                     <label

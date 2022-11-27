@@ -9,8 +9,10 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import Swal from "sweetalert2";
 import useToken from "../../../hooks/useToken";
 import toast from "react-hot-toast";
+import useTitle from "../../../hooks/useTitle";
 
 const Signup = () => {
+  useTitle("Sign Up");
   const { createUser, updateInfo, googleLogIn } = useContext(AuthContext);
   const {
     register,
@@ -73,7 +75,7 @@ const Signup = () => {
       img,
       type,
     };
-    fetch("http://localhost:5000/users", {
+    fetch("https://used-car-assigment-server.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",

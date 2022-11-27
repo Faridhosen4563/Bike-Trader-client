@@ -8,8 +8,10 @@ import facebookLogo from "../../../assets/signup/icons8-facebook.svg";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import toast from "react-hot-toast";
 import useToken from "../../../hooks/useToken";
+import useTitle from "../../../hooks/useTitle";
 
 const Login = () => {
+  useTitle("Log In");
   const { logIn, googleLogIn } = useContext(AuthContext);
   const [logInError, setLogInError] = useState("");
   const { register, handleSubmit } = useForm();
@@ -60,12 +62,11 @@ const Login = () => {
   };
 
   const accessToken = (email) => {
-    fetch(`http://localhost:5000/jwt?email=${email}`)
+    fetch(`https://used-car-assigment-server.vercel.app/jwt?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.token) {
           localStorage.setItem("bikeTraderToken", data.token);
-          console.log(data, token);
         }
       });
   };

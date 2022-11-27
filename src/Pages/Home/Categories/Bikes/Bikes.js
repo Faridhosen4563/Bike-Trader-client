@@ -2,10 +2,12 @@ import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../../../contexts/AuthProvider";
+import useTitle from "../../../../hooks/useTitle";
 import BikeCard from "./BikeCard";
 import BookingModal from "./BookingModal/BookingModal";
 
 const Bikes = () => {
+  useTitle("Products");
   const { user } = useContext(AuthContext);
   const bikes = useLoaderData();
   const [bikeData, setBikeData] = useState(null);
@@ -16,7 +18,7 @@ const Bikes = () => {
       reporterEmail: user?.email,
     };
 
-    fetch("http://localhost:5000/reports", {
+    fetch("https://used-car-assigment-server.vercel.app/reports", {
       method: "POST",
       headers: {
         "content-type": "application/json",

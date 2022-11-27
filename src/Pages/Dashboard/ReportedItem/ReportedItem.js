@@ -13,11 +13,14 @@ const ReportedItem = () => {
   const { data: reportItems = [], refetch } = useQuery({
     queryKey: ["reportItems"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/reports", {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
-        },
-      });
+      const res = await fetch(
+        "https://used-car-assigment-server.vercel.app/reports",
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+          },
+        }
+      );
       if (res.status === 401 || res.status === 403) {
         return logOut();
       }
@@ -28,12 +31,15 @@ const ReportedItem = () => {
 
   const handleDelete = (deleteItem) => {
     console.log(deleteItem._id);
-    fetch(`http://localhost:5000/reports/${deleteItem._id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
-      },
-    })
+    fetch(
+      `https://used-car-assigment-server.vercel.app/reports/${deleteItem._id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+        },
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           return logOut();

@@ -1,12 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import useTitle from "../../hooks/useTitle";
 import BlogItem from "./BlogItem";
 
 const Blogs = () => {
+  useTitle("Blogs");
   const { data: blogs = [] } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/blogs");
+      const res = await fetch(
+        "https://used-car-assigment-server.vercel.app/blogs"
+      );
       const data = await res.json();
       return data;
     },

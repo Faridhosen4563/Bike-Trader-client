@@ -38,13 +38,16 @@ export const router = createBrowserRouter([
       {
         path: "/category/:name",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/categories/${params.name}`, {
-            headers: {
-              authorization: `Bearer ${localStorage.getItem(
-                "bikeTraderToken"
-              )}`,
-            },
-          }),
+          fetch(
+            `https://used-car-assigment-server.vercel.app/categories/${params.name}`,
+            {
+              headers: {
+                authorization: `Bearer ${localStorage.getItem(
+                  "bikeTraderToken"
+                )}`,
+              },
+            }
+          ),
         element: (
           <PrivateRoute>
             <Bikes></Bikes>
@@ -134,7 +137,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/bookings/${params.id}`),
+          fetch(
+            `https://used-car-assigment-server.vercel.app/bookings/${params.id}`
+          ),
       },
     ],
   },

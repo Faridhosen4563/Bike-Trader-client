@@ -16,7 +16,7 @@ const MyOrders = () => {
     queryKey: ["bookings", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/bookings?email=${user.email}`,
+        `https://used-car-assigment-server.vercel.app/bookings?email=${user.email}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
@@ -32,12 +32,15 @@ const MyOrders = () => {
   });
 
   const handleDelete = (booking) => {
-    fetch(`http://localhost:5000/bookings/${booking._id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
-      },
-    })
+    fetch(
+      `https://used-car-assigment-server.vercel.app/bookings/${booking._id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+        },
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           return logOut();

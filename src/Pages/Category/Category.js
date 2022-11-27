@@ -1,12 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import useTitle from "../../hooks/useTitle";
 import CategoriesCard from "../Home/Categories/CategoriesCard";
 
 const Category = () => {
+  useTitle("Category");
   const { data: categories = [] } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/categories");
+      const res = await fetch(
+        "https://used-car-assigment-server.vercel.app/categories"
+      );
       const data = await res.json();
       return data;
     },

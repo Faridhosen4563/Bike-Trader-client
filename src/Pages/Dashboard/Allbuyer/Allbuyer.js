@@ -13,11 +13,14 @@ const Allbuyer = () => {
   const { data: buyers = [], refetch } = useQuery({
     queryKey: ["buyers"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users/buyer", {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
-        },
-      });
+      const res = await fetch(
+        "https://used-car-assigment-server.vercel.app/users/buyer",
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+          },
+        }
+      );
       if (res.status === 401 || res.status === 403) {
         return logOut();
       }
@@ -27,12 +30,15 @@ const Allbuyer = () => {
   });
 
   const handleDelete = (buyer) => {
-    fetch(`http://localhost:5000/users/buyer/${buyer._id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
-      },
-    })
+    fetch(
+      `https://used-car-assigment-server.vercel.app/users/buyer/${buyer._id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+        },
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           return logOut();
@@ -42,6 +48,30 @@ const Allbuyer = () => {
       .then((data) => {
         if (data.deletedCount > 0) {
           toast.success(`${buyer.name} has been deleted successfully`);
+          refetch();
+        }
+      });
+  };
+
+  const handleAdmin = (buyer) => {
+    fetch(
+      `https://used-car-assigment-server.vercel.app/makeAdmin/${buyer._id}`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
+        },
+      }
+    )
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          return logOut();
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast.success(`${buyer.name} admin successfully updated`);
           refetch();
         }
       });
@@ -60,6 +90,7 @@ const Allbuyer = () => {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Job</th>
+                <th>Make Admin</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -79,6 +110,14 @@ const Allbuyer = () => {
                   <td>{buyer.name}</td>
                   <td>{buyer.email}</td>
                   <td>{buyer.type}</td>
+                  <td>
+                    <button
+                      onClick={() => handleAdmin(buyer)}
+                      className="btn btn-outline"
+                    >
+                      Make Admin
+                    </button>
+                  </td>
                   <td>
                     <label
                       onClick={() => setDeletingItem(buyer)}

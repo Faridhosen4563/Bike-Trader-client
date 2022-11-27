@@ -4,7 +4,9 @@ const useRole = (email) => {
   const { data: role = {}, isLoading } = useQuery({
     queryKey: ["role", email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/users/role/${email}`);
+      const res = await fetch(
+        `https://used-car-assigment-server.vercel.app/users/role/${email}`
+      );
       const data = await res.json();
       return data;
     },

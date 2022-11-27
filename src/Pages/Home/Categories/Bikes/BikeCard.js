@@ -22,7 +22,7 @@ const BikeCard = ({ bikeInfo, setBikeData, handleReport }) => {
     queryKey: ["user", bikeInfo?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/user/sellerVerify/${bikeInfo?.email}`
+        `https://used-car-assigment-server.vercel.app/user/sellerVerify/${bikeInfo?.email}`
       );
       const data = await res.json();
       return data;

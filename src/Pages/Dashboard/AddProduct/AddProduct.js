@@ -4,9 +4,11 @@ import axios from "axios";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../Sheared/LoadingSpiner";
 
 const AddProduct = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [processing, setProcessing] = useState(false);
   const [categories, setCategories] = useState([]);
   const currentDate = new Date().toLocaleDateString();
   const navigate = useNavigate();
@@ -17,12 +19,15 @@ const AddProduct = () => {
   } = useForm();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/category").then((res) => {
-      setCategories(res.data);
-    });
+    axios
+      .get("https://used-car-assigment-server.vercel.app/category")
+      .then((res) => {
+        setCategories(res.data);
+      });
   }, []);
 
   const handleAdd = (data) => {
+    setProcessing(true);
     const img = data.image[0];
     const formData = new FormData();
     formData.append("image", img);
@@ -52,7 +57,7 @@ const AddProduct = () => {
             img: imgData.data.url,
           };
 
-          fetch("http://localhost:5000/bikes", {
+          fetch("https://used-car-assigment-server.vercel.app/bikes", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -64,6 +69,7 @@ const AddProduct = () => {
           })
             .then((res) => {
               if (res.status === 401 || res.status === 403) {
+                setProcessing(false);
                 return logOut();
               }
               return res.json();
@@ -71,6 +77,7 @@ const AddProduct = () => {
             .then((data) => {
               if (data.acknowledged) {
                 toast.success("Added a product successfully");
+                setProcessing(false);
                 navigate("/dashboard/myporducts");
               }
             });
@@ -253,7 +260,7 @@ const AddProduct = () => {
         </div>
         <input
           type="submit"
-          value="Add A Product"
+          value={processing ? "Processing..." : "Add A Product"}
           className="btn btn-accent w-full my-4"
         />
       </form>

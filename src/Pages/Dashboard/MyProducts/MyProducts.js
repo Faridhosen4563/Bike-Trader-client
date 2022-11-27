@@ -16,7 +16,7 @@ const MyProducts = () => {
     queryKey: ["products", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/products?email=${user?.email}`,
+        `https://used-car-assigment-server.vercel.app/products?email=${user?.email}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
@@ -32,7 +32,7 @@ const MyProducts = () => {
   });
 
   const handleDelete = (product) => {
-    fetch(`http://localhost:5000/bikes/${product._id}`, {
+    fetch(`https://used-car-assigment-server.vercel.app/bikes/${product._id}`, {
       method: "DELETE",
       headers: {
         authorization: `Bearer ${localStorage.getItem("bikeTraderToken")}`,
@@ -59,7 +59,7 @@ const MyProducts = () => {
       bike: advertise.Bike,
       price: advertise.price,
     };
-    fetch("http://localhost:5000/advertises", {
+    fetch("https://used-car-assigment-server.vercel.app/advertises", {
       method: "POST",
       headers: {
         "content-type": "application/json",

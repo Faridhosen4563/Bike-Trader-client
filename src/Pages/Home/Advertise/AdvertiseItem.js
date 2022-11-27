@@ -6,7 +6,7 @@ const AdvertiseItem = ({ advertise }) => {
     queryKey: ["bikesData", advertise?.advData],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/bikes/${advertise?.advData}`
+        `https://used-car-assigment-server.vercel.app/bikes/${advertise?.advData}`
       );
       const data = await res.json();
       return data;
