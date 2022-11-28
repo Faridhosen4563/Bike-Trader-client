@@ -58,6 +58,11 @@ const ReportedItem = () => {
         }
       });
   };
+
+  if (isLoading) {
+    return <Spinner></Spinner>;
+  }
+
   if (reportItems.length === 0) {
     return (
       <p className="flex justify-center items-center text-3xl font-bold text-green-400 h-full">
@@ -65,9 +70,7 @@ const ReportedItem = () => {
       </p>
     );
   }
-  if (isLoading) {
-    return <Spinner></Spinner>;
-  }
+
   return (
     <div className="mx-5 my-8">
       <h1 className="text-2xl font-bold text-center my-4">
