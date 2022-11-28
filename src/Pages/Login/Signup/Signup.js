@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import useToken from "../../../hooks/useToken";
 import toast from "react-hot-toast";
 import useTitle from "../../../hooks/useTitle";
+import LoadingSpinner from "../../Sheared/LoadingSpiner";
 
 const Signup = () => {
   useTitle("Sign Up");
@@ -20,6 +21,7 @@ const Signup = () => {
     formState: { errors },
   } = useForm();
   const [signupError, setSignupError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -32,6 +34,7 @@ const Signup = () => {
   }
 
   const handleLogIn = (data) => {
+    setLoading(true);
     const img = data.image[0];
     const formData = new FormData();
     formData.append("image", img);
@@ -63,6 +66,7 @@ const Signup = () => {
             .catch((error) => {
               console.error(error);
               setSignupError(error.message);
+              setLoading(false);
             });
         }
       });
@@ -85,6 +89,7 @@ const Signup = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
+          setLoading(false);
           setUserCreateEmail(email);
           Swal.fire({
             position: "center",
@@ -218,7 +223,7 @@ const Signup = () => {
             </div>
             <div className="form-control mt-6">
               <button type="submit" className="btn btn-primary">
-                Sign Up
+                {loading ? <LoadingSpinner></LoadingSpinner> : "Sign Up"}
               </button>
             </div>
             <p className="text-center my-2">

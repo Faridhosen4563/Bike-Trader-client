@@ -39,7 +39,6 @@ const Bikes = () => {
         Pick Your Dream Bike here
       </h1>
       <div className="mt-8">
-        <p>Total Bike Collection : {bikes.length}</p>
         <div className="grid gap-6 my-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {bikes.map((bike) => (
             <BikeCard

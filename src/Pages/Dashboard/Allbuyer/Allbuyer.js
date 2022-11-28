@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
+import Spinner from "../../../components/Spinner";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import ConfirmationModal from "../../Sheared/ConfirmationModal";
 
@@ -10,7 +11,11 @@ const Allbuyer = () => {
   const closeModal = () => {
     setDeletingItem(null);
   };
-  const { data: buyers = [], refetch } = useQuery({
+  const {
+    data: buyers = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["buyers"],
     queryFn: async () => {
       const res = await fetch(
@@ -76,6 +81,10 @@ const Allbuyer = () => {
         }
       });
   };
+
+  if (isLoading) {
+    return <Spinner></Spinner>;
+  }
 
   return (
     <div className="mx-5 my-8">

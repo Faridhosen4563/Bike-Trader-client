@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import Spinner from "../../../components/Spinner";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import ConfirmationModal from "../../Sheared/ConfirmationModal";
 
@@ -12,7 +13,11 @@ const MyOrders = () => {
     setDeletingItem(null);
   };
 
-  const { data: bookings = [], refetch } = useQuery({
+  const {
+    data: bookings = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["bookings", user?.email],
     queryFn: async () => {
       const res = await fetch(
@@ -54,6 +59,10 @@ const MyOrders = () => {
         }
       });
   };
+
+  if (isLoading) {
+    return <Spinner></Spinner>;
+  }
 
   if (bookings.length === 0) {
     return (

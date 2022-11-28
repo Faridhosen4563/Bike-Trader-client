@@ -2,6 +2,7 @@ import { async } from "@firebase/util";
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
+import Spinner from "../../../components/Spinner";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import ConfirmationModal from "../../Sheared/ConfirmationModal";
 
@@ -12,7 +13,11 @@ const MyProducts = () => {
     setDeletingItem(null);
   };
 
-  const { data: products = [], refetch } = useQuery({
+  const {
+    data: products = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["products", user?.email],
     queryFn: async () => {
       const res = await fetch(
@@ -79,6 +84,10 @@ const MyProducts = () => {
         }
       });
   };
+
+  if (isLoading) {
+    return <Spinner></Spinner>;
+  }
 
   return (
     <div className="mx-5 my-8">

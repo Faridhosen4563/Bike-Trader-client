@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import ConfirmationModal from "../../Sheared/ConfirmationModal";
 import { FcApproval } from "react-icons/fc";
+import Spinner from "../../../components/Spinner";
 
 const Allseller = () => {
   const { logOut } = useContext(AuthContext);
@@ -11,7 +12,11 @@ const Allseller = () => {
   const closeModal = () => {
     setDeletingItem(null);
   };
-  const { data: sellers = [], refetch } = useQuery({
+  const {
+    data: sellers = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["sellers"],
     queryFn: async () => {
       const res = await fetch(
@@ -77,6 +82,10 @@ const Allseller = () => {
         }
       });
   };
+
+  if (isLoading) {
+    return <Spinner></Spinner>;
+  }
 
   return (
     <div className="mx-5 my-8">

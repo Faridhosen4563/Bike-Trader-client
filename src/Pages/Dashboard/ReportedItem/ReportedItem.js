@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
+import Spinner from "../../../components/Spinner";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import ConfirmationModal from "../../Sheared/ConfirmationModal";
 
@@ -10,7 +11,11 @@ const ReportedItem = () => {
   const closeModal = () => {
     setDeletingItem(null);
   };
-  const { data: reportItems = [], refetch } = useQuery({
+  const {
+    data: reportItems = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["reportItems"],
     queryFn: async () => {
       const res = await fetch(
@@ -59,6 +64,9 @@ const ReportedItem = () => {
         You have reported item 0
       </p>
     );
+  }
+  if (isLoading) {
+    return <Spinner></Spinner>;
   }
   return (
     <div className="mx-5 my-8">

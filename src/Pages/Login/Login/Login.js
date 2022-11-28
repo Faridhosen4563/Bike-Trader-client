@@ -9,11 +9,13 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import toast from "react-hot-toast";
 import useToken from "../../../hooks/useToken";
 import useTitle from "../../../hooks/useTitle";
+import LoadingSpinner from "../../Sheared/LoadingSpiner";
 
 const Login = () => {
   useTitle("Log In");
   const { logIn, googleLogIn } = useContext(AuthContext);
   const [logInError, setLogInError] = useState("");
+  const [process, setProcess] = useState(false);
   const { register, handleSubmit } = useForm();
 
   const location = useLocation();
@@ -28,32 +30,38 @@ const Login = () => {
   // }
 
   const handleLogIn = (data) => {
+    setProcess(true);
     logIn(data.email, data.password)
       .then((result) => {
         setLogInError("");
         const user = result.user;
         accessToken(data.email);
+        setProcess(false);
         toast.success("Log in successful");
         navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);
         setLogInError(error.message);
+        setProcess(false);
       });
   };
 
   const handleGoogleLogIn = () => {
+    setProcess(true);
     googleLogIn()
       .then((result) => {
         const user = result.user;
         setLogInError("");
         accessToken(user?.email);
         toast.success("Log in successful");
+        setProcess(false);
         navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);
         setLogInError(error.message);
+        setProcess(false);
       });
   };
 
@@ -115,7 +123,7 @@ const Login = () => {
               </div>
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-primary">
-                  Login
+                  {process ? <LoadingSpinner></LoadingSpinner> : "Login"}
                 </button>
               </div>
               <p className="text-center my-2">
