@@ -3,8 +3,8 @@
 * Server Code Link : https://github.com/programming-hero-web-course-4/b612-used-products-resale-server-side-Faridhosen4563
 
 * Admin Info : 
-*  * Email : khan@gmail.com
-*  Password : Aa123456?
+  * Email : khan@gmail.com
+  * Password : Aa123456?
 
 * Feature
   * Bike resale website
