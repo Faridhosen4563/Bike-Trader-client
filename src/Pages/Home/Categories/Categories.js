@@ -13,6 +13,7 @@ const Categories = () => {
       return data;
     },
   });
+
   return (
     <div className="my-20">
       <div className="text-center">
